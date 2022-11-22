@@ -1,18 +1,23 @@
-package com.example.demo.transaction;
+package com.example.transaction.Transaction;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.data.domain.Page;
 import org.springframework.http.codec.multipart.FilePart;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
 public class TransactionServiceImpl implements TransactionService {
 
-    @Autowired
     private TransactionRepository transactionRepository;
+
+    public TransactionServiceImpl(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
 
     @Override
     public TransactionEntity create(TransactionEntity transactionEntity) {
@@ -67,14 +72,11 @@ public class TransactionServiceImpl implements TransactionService {
                     String Account_Dest = columns[5];
                     String Amount = columns[6];
                     String Date_Transaction = columns[7];
-                    try {
-                        TransactionEntity transactionEntity = new TransactionEntity(Bank_Origen, Agency_Origen,
-                                Account_Origen, Bank_Dest, Agency_Dest, Account_Dest, Amount, Date_Transaction);
-                        create(transactionEntity);
-                    }catch (RuntimeException e){
-                        throw new RuntimeException(e);
-                    }
+                    TransactionEntity transactionEntity = new TransactionEntity(Bank_Origen, Agency_Origen,
+                            Account_Origen, Bank_Dest, Agency_Dest, Account_Dest, Amount, Date_Transaction);
+                    create(transactionEntity);
                 })
                 .subscribe();
     }
+
 }
