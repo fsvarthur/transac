@@ -12,13 +12,28 @@ public class TransactionEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
+    @Column(name = "bank_origen", nullable = false)
     private String Bank_Origen;
+
+    @Column(name = "agency_origen", nullable = false)
     private String Agency_Origen;
+
+    @Column(name = "account_origen", nullable = false)
     private String Account_Origen;
+
+    @Column(name = "bank_dest", nullable = false)
     private String Bank_Dest;
+
+    @Column(name = "agency_dest", nullable = false)
     private String Agency_Dest;
+
+    @Column(name = "account_dest", nullable = false)
     private String Account_Dest;
+
+    @Column(name = "amount", nullable = false)
     private String Amount;
+
+    @Column(name = "date_transaction", nullable = false)
     private String Date_Transaction;
 
 

@@ -1,5 +1,7 @@
 package com.example.transaction.Transaction;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.multipart.FilePart;
@@ -10,7 +12,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/v1")
 public class TransactionController {
-
+    private static final Logger log = LoggerFactory.getLogger(TransactionController.class);
     private TransactionService transactionService;
 
     @GetMapping(path = "/")
