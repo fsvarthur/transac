@@ -1,4 +1,4 @@
-package com.example.transaction.Transaction;
+package com.example.transaction.Entity;
 
 import com.example.transaction.User.UserEntity;
 

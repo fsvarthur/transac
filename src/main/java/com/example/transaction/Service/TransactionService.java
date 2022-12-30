@@ -1,5 +1,6 @@
-package com.example.transaction.Transaction;
+package com.example.transaction.Service;
 
+import com.example.transaction.Entity.TransactionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.http.codec.multipart.FilePart;
 
