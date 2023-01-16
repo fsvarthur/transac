@@ -13,8 +13,12 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/v1")
 public class TransactionController {
-    private static final Logger log = LoggerFactory.getLogger(TransactionController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TransactionController.class);
     private TransactionService transactionService;
+
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     @GetMapping(path = "/")
     private ResponseEntity<String> get(){
@@ -26,6 +30,5 @@ public class TransactionController {
         String fileName = filePart.filename();
         transactionService.uploadData(filePart);
         return ResponseEntity.ok("Upload file successfull ("+fileName+")");
-
     }
 }

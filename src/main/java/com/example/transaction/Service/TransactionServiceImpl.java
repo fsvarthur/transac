@@ -52,11 +52,11 @@ public class TransactionServiceImpl implements TransactionService {
         String REGEX_CSV_SPLIT = ",(?=([^\"])*[^\"]*$)";
         filePart.content()
                 .map(DataBuffer::asInputStream)
-                .map( inputStream -> {
+                .map(inputStream -> {
                     try{
                         return inputStream.readAllBytes();
                     }catch(IOException io){
-                        throw  new RuntimeException(io);
+                        throw new RuntimeException(io);
                     }
                 })
                 .map(String::new)
