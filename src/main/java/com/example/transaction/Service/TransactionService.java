@@ -1,16 +1,17 @@
 package com.example.transaction.Service;
 
+import com.example.transaction.Entity.DTO.TransactionEntityDto;
 import com.example.transaction.Entity.TransactionEntity;
-import org.springframework.data.domain.Page;
 import org.springframework.http.codec.multipart.FilePart;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface TransactionService {
 
-    TransactionEntity create(TransactionEntity transactionEntity);
-    TransactionEntity findById(String id);
-    Page<TransactionEntity> findAll(int page, int size);
-    TransactionEntity update(String id, TransactionEntity request);
-    boolean delete(String id);
+    Mono<TransactionEntity> findById(String id);
+    Flux<TransactionEntity> findAll(int page, int size);
+
+    Mono<Void> delete(String id);
 
     void uploadData(FilePart filePart);
 }

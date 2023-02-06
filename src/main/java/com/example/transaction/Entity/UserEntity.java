@@ -1,10 +1,8 @@
-package com.example.transaction.User;
+package com.example.transaction.Entity;
 
+import jakarta.persistence.*;
 import org.springframework.context.annotation.Role;
 
-import javax.persistence.*;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")

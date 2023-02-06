@@ -1,5 +1,6 @@
-package com.example.transaction.Entity;
+package com.example.transaction.Entity.DTO;
 
+import com.example.transaction.Entity.TransactionEntity;
 import lombok.Data;
 
 import java.io.Serializable;

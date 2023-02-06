@@ -1,7 +1,8 @@
-package com.example.transaction.User;
+package com.example.transaction.Service;
 
+import com.example.transaction.Entity.DTO.UserDto;
+import com.example.transaction.Entity.UserEntity;
 import com.example.transaction.Exceptions.EmailExistsException;
-import com.example.transaction.User.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

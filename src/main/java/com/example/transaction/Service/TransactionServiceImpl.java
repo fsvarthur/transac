@@ -1,50 +1,52 @@
 package com.example.transaction.Service;
 
 
+import com.example.transaction.Entity.DTO.TransactionEntityDto;
 import com.example.transaction.Entity.TransactionEntity;
 import com.example.transaction.Repository.TransactionRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.data.domain.Page;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.logging.Level.FINE;
+
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
+    private final Logger LOG = LoggerFactory.getLogger(TransactionServiceImpl.class);
+
     private TransactionRepository transactionRepository;
+
+    ObjectMapper objectMapper;
 
     public TransactionServiceImpl(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
 
     @Override
-    public TransactionEntity create(TransactionEntity transactionEntity) {
-        return null;
+    public Mono<TransactionEntity> findById(String id) {
+        return transactionRepository.findByTransactionId(Long.valueOf(id));
     }
 
     @Override
-    public TransactionEntity findById(String id) {
-        return null;
+    public Flux<TransactionEntity> findAll(int page, int size) {
+        return transactionRepository.findAll().log(LOG.getName(), FINE).map(e -> e);
     }
 
     @Override
-    public Page<TransactionEntity> findAll(int page, int size) {
-        return null;
-    }
-
-    @Override
-    public TransactionEntity update(String id, TransactionEntity request) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(String id) {
-        return false;
+    public Mono<Void> delete(String id){
+        return transactionRepository.findByTransactionId(Long.valueOf(id)).log(LOG.getName(), FINE).map(
+                e -> transactionRepository.delete(e)).flatMap(e -> e);
     }
 
     @Override
@@ -75,11 +77,25 @@ public class TransactionServiceImpl implements TransactionService {
                     String Account_Dest = columns[5];
                     String Amount = columns[6];
                     String Date_Transaction = columns[7];
-                    TransactionEntity transactionEntity = new TransactionEntity(Bank_Origen, Agency_Origen,
+                    TransactionEntityDto transactionEntity = new TransactionEntityDto(1L,Bank_Origen, Agency_Origen,
                             Account_Origen, Bank_Dest, Agency_Dest, Account_Dest, Amount, Date_Transaction);
                     create(transactionEntity);
                 })
                 .subscribe();
+    }
+
+    public TransactionEntity toEntity(TransactionEntityDto transactionEntityDto){
+        TransactionEntity te = new TransactionEntity();
+        te.setId(transactionEntityDto.getId());
+        te.setBank_Origen(transactionEntityDto.getBank_Origen());
+        te.setAgency_Origen(transactionEntityDto.getAgency_Origen());
+        te.setAccount_Origen(transactionEntityDto.getAccount_Origen());
+        te.setBank_Dest(transactionEntityDto.getBank_Dest());
+        te.setAgency_Dest(transactionEntityDto.getAgency_Dest());
+        te.setAccount_Dest(transactionEntityDto.getAccount_Dest());
+        te.setAmount(transactionEntityDto.getAmount());
+        te.setDate_Transaction(transactionEntityDto.getDate_Transaction());
+        return te;
     }
 
 }

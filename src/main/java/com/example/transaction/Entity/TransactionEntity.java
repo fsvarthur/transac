@@ -1,8 +1,6 @@
 package com.example.transaction.Entity;
 
-import com.example.transaction.User.UserEntity;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "transactions")
@@ -37,7 +35,7 @@ public class TransactionEntity {
     private String Date_Transaction;
 
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "user_entity_id")
     private UserEntity userEntity;
 
@@ -47,7 +45,7 @@ public class TransactionEntity {
 
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
-    }
+    }*/
 
     public TransactionEntity() {
     }

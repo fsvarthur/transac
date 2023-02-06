@@ -1,4 +1,4 @@
-package com.example.transaction.User.dto;
+package com.example.transaction.Entity.DTO;
 
 public class UserDto {
 
