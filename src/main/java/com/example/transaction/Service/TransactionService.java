@@ -8,6 +8,8 @@ import reactor.core.publisher.Mono;
 
 public interface TransactionService {
 
+    Mono<TransactionEntity> Create(TransactionEntityDto TED);
+
     Mono<TransactionEntity> findById(String id);
     Flux<TransactionEntity> findAll(int page, int size);
 

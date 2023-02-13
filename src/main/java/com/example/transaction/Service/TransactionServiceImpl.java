@@ -1,10 +1,10 @@
 package com.example.transaction.Service;
 
 
+import com.example.transaction.Config.TransactionMapper;
 import com.example.transaction.Entity.DTO.TransactionEntityDto;
 import com.example.transaction.Entity.TransactionEntity;
 import com.example.transaction.Repository.TransactionRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -26,11 +26,16 @@ public class TransactionServiceImpl implements TransactionService {
     private final Logger LOG = LoggerFactory.getLogger(TransactionServiceImpl.class);
 
     private TransactionRepository transactionRepository;
+    private TransactionMapper mapper;
 
-    ObjectMapper objectMapper;
-
-    public TransactionServiceImpl(TransactionRepository transactionRepository) {
+    public TransactionServiceImpl(TransactionRepository transactionRepository, TransactionMapper mapper) {
         this.transactionRepository = transactionRepository;
+        this.mapper = mapper;
+    }
+
+    @Override
+    public Mono<TransactionEntity> Create(TransactionEntityDto TED) {
+        return transactionRepository.save(mapper.apiToEntity(TED));
     }
 
     @Override
@@ -79,23 +84,9 @@ public class TransactionServiceImpl implements TransactionService {
                     String Date_Transaction = columns[7];
                     TransactionEntityDto transactionEntity = new TransactionEntityDto(1L,Bank_Origen, Agency_Origen,
                             Account_Origen, Bank_Dest, Agency_Dest, Account_Dest, Amount, Date_Transaction);
-                    create(transactionEntity);
+                    Create(transactionEntity);
                 })
                 .subscribe();
-    }
-
-    public TransactionEntity toEntity(TransactionEntityDto transactionEntityDto){
-        TransactionEntity te = new TransactionEntity();
-        te.setId(transactionEntityDto.getId());
-        te.setBank_Origen(transactionEntityDto.getBank_Origen());
-        te.setAgency_Origen(transactionEntityDto.getAgency_Origen());
-        te.setAccount_Origen(transactionEntityDto.getAccount_Origen());
-        te.setBank_Dest(transactionEntityDto.getBank_Dest());
-        te.setAgency_Dest(transactionEntityDto.getAgency_Dest());
-        te.setAccount_Dest(transactionEntityDto.getAccount_Dest());
-        te.setAmount(transactionEntityDto.getAmount());
-        te.setDate_Transaction(transactionEntityDto.getDate_Transaction());
-        return te;
     }
 
 }

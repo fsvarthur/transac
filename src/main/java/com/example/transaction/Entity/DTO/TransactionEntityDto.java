@@ -10,13 +10,16 @@ import java.io.Serializable;
  */
 @Data
 public class TransactionEntityDto implements Serializable {
-    private final Long Id;
-    private final String Bank_Origen;
-    private final String Agency_Origen;
-    private final String Account_Origen;
-    private final String Bank_Dest;
-    private final String Agency_Dest;
-    private final String Account_Dest;
-    private final String Amount;
-    private final String Date_Transaction;
+    private Long Id;
+    private String Bank_Origen;
+    private String Agency_Origen;
+    private String Account_Origen;
+    private String Bank_Dest;
+    private String Agency_Dest;
+    private String Account_Dest;
+    private String Amount;
+    private String Date_Transaction;
+
+    public TransactionEntityDto(long l, String bankOrigen, String agencyOrigen, String accountOrigen, String bankDest, String agencyDest, String accountDest, String amount, String dateTransaction) {
+    }
 }

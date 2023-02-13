@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import static java.util.logging.Level.FINE;
+
 @RestController
 @RequestMapping("/api/v1")
 public class TransactionController {
@@ -24,7 +26,7 @@ public class TransactionController {
     }
 
     @GetMapping(path = "/")
-    private ResponseEntity<Flux<TransactionEntity>> get(int page, int size,
+    private ResponseEntity<Flux<TransactionEntity>> getAllTransactions(int page, int size,
                                                         @RequestHeader("Accept-Encoding") String encoding,
                                                         @RequestHeader("Keep-Alive") long keepAlive){
         return ResponseEntity.ok(transactionService.findAll(page, size));
@@ -32,7 +34,9 @@ public class TransactionController {
 
     @GetMapping(path = "/{id}")
     private ResponseEntity<Mono<TransactionEntity>> getTransactionById(@PathVariable String id){
-        return ResponseEntity.ok(transactionService.findById(id).onErrorComplete(NotFoundException.class));
+        LOG.info(LOG.getName(), FINE);
+        return ResponseEntity.ok(transactionService.findById(id).doOnError(
+                NotFoundException.class, Throwable::printStackTrace));
     }
 
     @PostMapping(path = "/uploadArchive", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -43,11 +47,12 @@ public class TransactionController {
         }catch (Exception e){
             e.printStackTrace();
         }
-        return ResponseEntity.ok("Upload file successfull ("+fileName+")");
+        return ResponseEntity.ok("Upload file successfully ("+fileName+")");
     }
 
     @DeleteMapping(path = "/{id}")
     private ResponseEntity<?> deleteTransaction(@PathVariable String id){
-        return ResponseEntity.ok(transactionService.delete(id).onErrorComplete(NotFoundException.class));
+        return ResponseEntity.ok(transactionService.delete(id).doOnError(
+                new NotFoundException("Delete Transaction not realized")));
     }
 }
