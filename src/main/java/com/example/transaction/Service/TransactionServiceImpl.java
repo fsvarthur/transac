@@ -7,9 +7,10 @@ import com.example.transaction.Entity.TransactionEntity;
 import com.example.transaction.Repository.TransactionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.codec.multipart.FilePart;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 
 import static java.util.logging.Level.FINE;
 
-@Service
+@Component
 public class TransactionServiceImpl implements TransactionService {
 
     private final Logger LOG = LoggerFactory.getLogger(TransactionServiceImpl.class);
@@ -28,6 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
     private TransactionRepository transactionRepository;
     private TransactionMapper mapper;
 
+    @Autowired
     public TransactionServiceImpl(TransactionRepository transactionRepository, TransactionMapper mapper) {
         this.transactionRepository = transactionRepository;
         this.mapper = mapper;

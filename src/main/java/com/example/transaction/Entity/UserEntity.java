@@ -1,27 +1,28 @@
 package com.example.transaction.Entity;
 
-import jakarta.persistence.*;
+
 import org.springframework.context.annotation.Role;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 
-@Entity
 @Table(name = "user")
 public class UserEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @org.springframework.data.annotation.Id
+
     private Long Id;
 
-    @Column(name = "name", nullable = false)
+    @Column()
     private String name;
 
-    @Column(name = "email", nullable = false)
+    @Column()
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column()
     private String password;
 
-    @Column(name = "role")
+    @Column()
     private Role role;
 
     public String getName() {

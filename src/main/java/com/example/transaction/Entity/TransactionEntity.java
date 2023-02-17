@@ -1,42 +1,32 @@
 package com.example.transaction.Entity;
 
-import jakarta.persistence.*;
 
-@Entity
-@Table(name = "transactions")
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
+@Table
 public class TransactionEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
-    @Column(name = "bank_origen", nullable = false)
     private String Bank_Origen;
 
-    @Column(name = "agency_origen", nullable = false)
     private String Agency_Origen;
 
-    @Column(name = "account_origen", nullable = false)
     private String Account_Origen;
 
-    @Column(name = "bank_dest", nullable = false)
     private String Bank_Dest;
 
-    @Column(name = "agency_dest", nullable = false)
     private String Agency_Dest;
 
-    @Column(name = "account_dest", nullable = false)
     private String Account_Dest;
 
-    @Column(name = "amount", nullable = false)
     private String Amount;
 
-    @Column(name = "date_transaction", nullable = false)
     private String Date_Transaction;
 
 
-    /*@ManyToOne
-    @JoinColumn(name = "user_entity_id")
     private UserEntity userEntity;
 
     public UserEntity getUserEntity() {
@@ -45,7 +35,7 @@ public class TransactionEntity {
 
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
-    }*/
+    }
 
     public TransactionEntity() {
     }
