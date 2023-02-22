@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -21,13 +22,14 @@ import java.util.stream.Collectors;
 
 import static java.util.logging.Level.FINE;
 
-@Component
+@Service
 public class TransactionServiceImpl implements TransactionService {
 
     private final Logger LOG = LoggerFactory.getLogger(TransactionServiceImpl.class);
 
-    private TransactionRepository transactionRepository;
-    private TransactionMapper mapper;
+    private final TransactionRepository transactionRepository;
+
+    private final TransactionMapper mapper;
 
     @Autowired
     public TransactionServiceImpl(TransactionRepository transactionRepository, TransactionMapper mapper) {
